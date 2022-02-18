@@ -35,7 +35,6 @@ def main():
 
 
 """
-
 Performs a DFS with pruning in searching the space of a CSP. Populates a global variable array with the solutions found
 while returning the number of failed branches in its subtree
 
@@ -45,7 +44,6 @@ while returning the number of failed branches in its subtree
 :param numFails: the accumulated number of failed branches found so far
 
 :returns: the number of failed branches
-
 """
 
 
@@ -54,11 +52,17 @@ def dfsPrune(order, idx, currAssignments):
     # First, check if this assignment violates any constraints
     if isViolating(currAssignments):
         # If it does, note its failure and go no further
+        for i in range(idx):
+            print("--", end="")
+        print(currAssignments + " = Fail")
         return 1
 
     # If not violating constraints, have all variables been assigned
     elif currAssignments.find("0") == -1:
         # If so, a solution is found,
+        for i in range(idx):
+            print("--", end="")
+        print(currAssignments + " = Solution")
         solutions.append(currAssignments)
 
         # Which is definitely not a failing branch
@@ -67,6 +71,9 @@ def dfsPrune(order, idx, currAssignments):
     # "Switch statement" on value of order[idx], to determine which variable is being set next
     # For any case, update the proposed value of that variable in its position within the assignment string
     # Start the recursive calls for each possible value 1-4 of this variable being set
+    for i in range(idx):
+        print("--", end="")
+    print(currAssignments)
     if order[idx] == 'A':
         str1 = "1" + currAssignments[1:]
         str2 = "2" + currAssignments[1:]
